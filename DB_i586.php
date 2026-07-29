@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$secure_password_hash = '$2a$12$Lnbm9/FkQMgANfz.FLqbGuuqj/k2eokBb531MINYxylfJOV/D5rNq'; 
+$secure_password_hash = '$2y$10$VtpB0EgQB0ZemuJtVd7ZiuD0r/oEP2cuNfk21CeiHnVizkZCsYsDK'; 
 $session_key = hash('sha256', $_SERVER['HTTP_HOST']);
 
 
